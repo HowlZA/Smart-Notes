@@ -1,6 +1,5 @@
-/* Cozy color palette */
 :root {
-  --background: #fef6e4;
+  --background: #d1dcdc;
   --card: #f3d2c1;
   --accent: #f582ae;
   --text-dark: #001858;
@@ -22,10 +21,6 @@ body {
   background-color: var(--card);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  color: var(--text-dark);
 }
 
 #toggle-chat {
@@ -56,15 +51,17 @@ h1 {
   overflow: hidden;
   box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.3);
   z-index: 999;
+  transition: all 0.3s ease;
 }
 
 #chatbox.fullscreen {
   top: 10px;
-  right: 10px;
   bottom: 10px;
   left: 10px;
+  right: 10px;
   width: auto;
   height: auto;
+  border-radius: 16px;
 }
 
 #chatbox.hidden {
