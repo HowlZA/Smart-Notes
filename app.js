@@ -14,22 +14,23 @@ const sendButton = document.getElementById("send-button");
 const userInput = document.getElementById("user-input");
 const chatBox = document.getElementById("chat-box");
 
-// Show chat
 toggleButton.onclick = () => {
   chatbox.classList.remove("hidden");
+  chatbox.classList.remove("fullscreen"); // ensure default size when opened
 };
 
-// Minimize chat
 minimizeButton.onclick = () => {
-  chatbox.classList.add("hidden");
+  if (chatbox.classList.contains("fullscreen")) {
+    chatbox.classList.remove("fullscreen");
+  } else {
+    chatbox.classList.add("fullscreen");
+  }
 };
 
-// Toggle fullscreen
 fullscreenButton.onclick = () => {
   chatbox.classList.toggle("fullscreen");
 };
 
-// Send message
 sendButton.onclick = () => {
   const message = userInput.value.trim();
   if (message) {
@@ -41,7 +42,6 @@ sendButton.onclick = () => {
   }
 };
 
-// Display chat messages
 function displayMessage(text, sender) {
   const msgDiv = document.createElement("div");
   msgDiv.className = sender;
