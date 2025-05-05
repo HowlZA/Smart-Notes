@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Notes</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div id="notes-section">
-        <h1>Lecture Notes: Understanding AI</h1>
-        <p>This is your notes section where you can add content.</p>
+        <h1>Lecture Notes</h1>
+        <div id="markdown-content">Loading notes...</div>
     </div>
 
     <div id="chatbox">
@@ -20,6 +21,37 @@
         <button id="send-button">Send</button>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        fetch('notes.md')
+            .then(res => res.text())
+            .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            })
+            .catch(err => {
+                document.getElementById('markdown-content').innerHTML = "Error loading notes.";
+                console.error(err);
+            });
+
+        const sendButton = document.getElementById("send-button");
+        const userInput = document.getElementById("user-input");
+        const chatBox = document.getElementById("chat");
+
+        sendButton.addEventListener("click", function() {
+            const message = userInput.value.trim();
+            if (message) {
+                displayMessage(message, "user");
+                userInput.value = "";
+                setTimeout(() => displayMessage("AI is thinking... (In a real app, this would be the AI response.)", "ai"), 1000);
+            }
+        });
+
+        function displayMessage(message, sender) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add(sender);
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
 </body>
 </html>
