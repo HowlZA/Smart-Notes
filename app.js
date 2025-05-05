@@ -1,26 +1,35 @@
-// Load notes from notes.md
+// Load markdown notes
 fetch('notes.md')
   .then(response => response.text())
   .then(data => {
     document.getElementById('notes-content').innerHTML = marked.parse(data);
   });
 
-// Chat functionality
+// Elements
 const toggleButton = document.getElementById("toggle-chat");
 const chatbox = document.getElementById("chatbox");
 const minimizeButton = document.getElementById("minimize-chat");
+const fullscreenButton = document.getElementById("fullscreen-chat");
 const sendButton = document.getElementById("send-button");
 const userInput = document.getElementById("user-input");
 const chatBox = document.getElementById("chat-box");
 
+// Show chat
 toggleButton.onclick = () => {
   chatbox.classList.remove("hidden");
 };
 
+// Minimize chat
 minimizeButton.onclick = () => {
   chatbox.classList.add("hidden");
 };
 
+// Toggle fullscreen
+fullscreenButton.onclick = () => {
+  chatbox.classList.toggle("fullscreen");
+};
+
+// Send message
 sendButton.onclick = () => {
   const message = userInput.value.trim();
   if (message) {
@@ -32,10 +41,11 @@ sendButton.onclick = () => {
   }
 };
 
-function displayMessage(message, sender) {
-  const messageDiv = document.createElement("div");
-  messageDiv.classList.add(sender);
-  messageDiv.textContent = message;
-  chatBox.appendChild(messageDiv);
+// Display chat messages
+function displayMessage(text, sender) {
+  const msgDiv = document.createElement("div");
+  msgDiv.className = sender;
+  msgDiv.textContent = text;
+  chatBox.appendChild(msgDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
